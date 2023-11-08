@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         "vb-black": "#333333",
+        "vb-overlay": "rgba(51, 51, 51, 0.15)",
       },
     },
   },

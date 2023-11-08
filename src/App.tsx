@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { PostData, UserData } from "./types";
 import { Post } from "./Post";
 import { UsersSelect } from "./usersSelector";
-import { Popup } from "./Popup";
+import { Popup } from "./popup";
+import { InfoIcon } from "./popup/InfoIcon";
 
 function App() {
   const [allPosts, setAllPosts] = useState<PostData[]>([]);
@@ -33,24 +34,33 @@ function App() {
   const closePopup = () => setIsPopupOpen(false);
 
   return (
-    <div className="flex flex-row gap-40 bg-neutral-100 px-24 font-lato text-vb-black">
+    <>
       <Popup isOpen={isPopupOpen} onClose={closePopup} />
-      <section className="pt-20">
-        <h1 className="mb-32 text-5xl font-bold">Posts</h1>
-        {filteredPosts.map((post) => (
-          <Post
-            title={post.title}
-            user={users.find((user) => user.id === post.userId)?.name}
-            body={post.body}
-            key={post.id}
-          />
-        ))}
-      </section>
-      <aside className="flex max-h-screen flex-col justify-between pt-9">
-        <UsersSelect users={users} idSetter={setSelectedUserId} />
-        <button onClick={() => setIsPopupOpen(true)}>open</button>
-      </aside>
-    </div>
+      <div className="flex flex-row gap-40 bg-neutral-100 px-24 font-lato text-vb-black">
+        <section className="pt-20">
+          <h1 className="mb-32 text-5xl font-bold">Posts</h1>
+          {filteredPosts.map((post) => (
+            <Post
+              title={post.title}
+              user={users.find((user) => user.id === post.userId)?.name}
+              body={post.body}
+              key={post.id}
+            />
+          ))}
+        </section>
+        <aside className="pt-9">
+          <UsersSelect users={users} idSetter={setSelectedUserId} />
+        </aside>
+        <footer>
+          <button
+            onClick={() => setIsPopupOpen(true)}
+            className="fixed bottom-0 pb-9"
+          >
+            <InfoIcon />
+          </button>
+        </footer>
+      </div>
+    </>
   );
 }
 
