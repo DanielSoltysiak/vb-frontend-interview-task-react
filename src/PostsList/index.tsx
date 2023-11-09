@@ -16,11 +16,11 @@ export const PostsList = ({
 }: Props) => {
   return (
     <>
-      <h1 className="mb-32 text-5xl font-bold">Posts</h1>
+      <h1 className="mb-6 text-2xl font-bold sm:mb-32 sm:text-5xl">Posts</h1>
       {!!postsError && <h2>Loading posts error</h2>}
       {postsLoading ? (
-        <></>
-      ) : (
+        <h2>Loading...</h2>
+        ) : (
         posts.map((post) => (
           <Post
             title={post.title}

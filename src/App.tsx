@@ -50,7 +50,7 @@ function App() {
   return (
     <>
       <Popup isOpen={isPopupOpen} onClose={closePopup} />
-      <div className="flex flex-row gap-40 bg-neutral-100 px-24 font-lato text-vb-black">
+      <div className="flex flex-col-reverse bg-neutral-100 px-2 font-lato text-vb-black sm:flex-row sm:px-24">
         <section className="pt-20">
           <PostsList
             posts={filteredPosts}
@@ -77,7 +77,7 @@ function App() {
           <button
             aria-label="Open info popup"
             onClick={() => setIsPopupOpen(true)}
-            className="fixed bottom-0 pb-9"
+            className="fixed right-5 top-5 sm:bottom-5 sm:top-auto"
           >
             <InfoIcon />
           </button>

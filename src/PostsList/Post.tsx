@@ -8,14 +8,14 @@ interface Props {
 
 export const Post = ({ title, user, body }: Props) => {
   return (
-    <div className="mb-20 flex-col">
-      <h2 className="mb-2 text-4xl font-bold">
+    <div className="mb-10 flex-col sm:mb-20">
+      <h2 className="mb-2 text-xl font-bold sm:text-4xl">
         {capitalizeFirstLetter(title)}
       </h2>
-      <p className="mb-3 text-lg">
+      <p className="mb-3 text-sm sm:text-lg">
         by <b>{user || "no data"}</b>
       </p>
-      <p className="text-lg">{body}</p>
+      <p className="text-sm sm:text-lg">{body}</p>
     </div>
   );
 };

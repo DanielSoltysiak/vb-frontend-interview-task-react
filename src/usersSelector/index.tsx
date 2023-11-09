@@ -34,7 +34,7 @@ export const UsersSelect = ({
       {(!!postsError || !!usersError) && <h2>Loading posts error</h2>}
       <p className="mb-5 block text-2xl">Authors:</p>
       {usersLoading ? (
-        <></>
+        <h2>Loading...</h2>
       ) : (
         <>
           <button
@@ -47,11 +47,14 @@ export const UsersSelect = ({
               isOpen && "select-option-active"
             }`}
           >
-            {activeUser?.name || "All"}
+            <p className="text-ellipsis">{activeUser?.name || "All"}</p>
             <TriangleIcon rotated={isHovered || isOpen} />
           </button>
           {isOpen && (
-            <ul role="listbox">
+            <ul
+              role="listbox"
+              className="absolute z-10 w-[50vw] bg-neutral-100 sm:static sm:w-full "
+            >
               <li>
                 <a
                   href="#"
@@ -59,7 +62,7 @@ export const UsersSelect = ({
                   tabIndex={0}
                   aria-label="All Users"
                   onClick={onOptionClicked(undefined)}
-                  className={`select-option focus:select-option-active last:border-b-[3px] ${
+                  className={`select-option focus:select-option-active ${
                     !activeUser && "select-option-active"
                   }`}
                 >
@@ -67,15 +70,14 @@ export const UsersSelect = ({
                 </a>
               </li>
               {...users.map((user) => (
-                <li>
+                <li key={user.id} className="border-vb-black last:border-b-[3px]">
                   <a
                     href="#"
                     role="option"
                     tabIndex={0}
                     aria-label={user.name}
                     onClick={onOptionClicked(user)}
-                    key={user.id || "all"}
-                    className={`select-option focus:select-option-active last:border-b-[3px] ${
+                    className={`select-option focus:select-option-active ${
                       activeUser?.id === user.id && "select-option-active"
                     }`}
                   >
