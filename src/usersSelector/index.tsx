@@ -37,36 +37,50 @@ export const UsersSelect = ({
         <></>
       ) : (
         <>
-          <p
+          <button
+            tabIndex={0}
+            aria-label="User Selection"
             onClick={onToggle}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`select-option mb-5 justify-between border-b-[3px] ${
+            className={`select-option focus:select-option-active mb-5 justify-between border-b-[3px] ${
               isOpen && "select-option-active"
             }`}
           >
             {activeUser?.name || "All"}
             <TriangleIcon rotated={isHovered || isOpen} />
-          </p>
+          </button>
           {isOpen && (
-            <ul>
-              <li
-                onClick={onOptionClicked(undefined)}
-                className={`select-option last:border-b-[3px] ${
-                  !activeUser && "select-option-active"
-                }`}
-              >
-                All
-              </li>
-              {...users.map((user) => (
-                <li
-                  onClick={onOptionClicked(user)}
-                  key={user.id || "all"}
-                  className={`select-option last:border-b-[3px] ${
-                    activeUser?.id === user.id && "select-option-active"
+            <ul role="listbox">
+              <li>
+                <a
+                  href="#"
+                  role="option"
+                  tabIndex={0}
+                  aria-label="All Users"
+                  onClick={onOptionClicked(undefined)}
+                  className={`select-option focus:select-option-active last:border-b-[3px] ${
+                    !activeUser && "select-option-active"
                   }`}
                 >
-                  {user.name}
+                  All
+                </a>
+              </li>
+              {...users.map((user) => (
+                <li>
+                  <a
+                    href="#"
+                    role="option"
+                    tabIndex={0}
+                    aria-label={user.name}
+                    onClick={onOptionClicked(user)}
+                    key={user.id || "all"}
+                    className={`select-option focus:select-option-active last:border-b-[3px] ${
+                      activeUser?.id === user.id && "select-option-active"
+                    }`}
+                  >
+                    {user.name}
+                  </a>
                 </li>
               ))}
             </ul>

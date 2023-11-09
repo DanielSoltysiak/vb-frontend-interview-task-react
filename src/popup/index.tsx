@@ -21,7 +21,7 @@ export const Popup = ({ isOpen, onClose }: Props) => {
         <p>Info popup</p>
         <button
           onClick={onClose}
-          className="mx-auto w-min border-[3px] border-vb-black px-[18%] py-[1%]"
+          className="focus:select-option-active mx-auto w-min border-[3px] border-vb-black px-[18%] py-[1%]"
         >
           Close
         </button>

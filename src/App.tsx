@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { PostData, UserData } from "./types";
-import { UsersSelect } from "./usersSelector";
-import { Popup } from "./popup";
-import { InfoIcon } from "./popup/InfoIcon";
+import { UsersSelect } from "./UsersSelector";
+import { Popup } from "./Popup";
+import { InfoIcon } from "./Popup/InfoIcon";
 import { changeUrl } from "./utils/urlChange";
 import { useFetchData } from "./utils/useFetchData";
 import { PostsList } from "./PostsList";
@@ -75,6 +75,7 @@ function App() {
         </aside>
         <footer>
           <button
+            aria-label="Open info popup"
             onClick={() => setIsPopupOpen(true)}
             className="fixed bottom-0 pb-9"
           >
