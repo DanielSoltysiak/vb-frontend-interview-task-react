@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from "./utils/capitalizeFirstLetter";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 interface Props {
   title: string;
@@ -13,7 +13,7 @@ export const Post = ({ title, user, body }: Props) => {
         {capitalizeFirstLetter(title)}
       </h2>
       <p className="mb-3 text-lg">
-        by <b>{user}</b>
+        by <b>{user || "no data"}</b>
       </p>
       <p className="text-lg">{body}</p>
     </div>

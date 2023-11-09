@@ -1,55 +1,77 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PostData, UserData } from "./types";
-import { Post } from "./Post";
 import { UsersSelect } from "./usersSelector";
 import { Popup } from "./popup";
 import { InfoIcon } from "./popup/InfoIcon";
+import { changeUrl } from "./utils/urlChange";
+import { useFetchData } from "./utils/useFetchData";
+import { PostsList } from "./PostsList";
 
 function App() {
-  const [allPosts, setAllPosts] = useState<PostData[]>([]);
-  const [users, setUsers] = useState<UserData[]>([]);
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState<number>();
+  const [selectedUser, setSelectedUser] = useState<UserData>();
   const [filteredPosts, setFilteredPosts] = useState<PostData[]>([]);
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts/")
-      .then((response) => response.json())
-      .then((json) => setAllPosts(json));
+  const {
+    data: allPosts,
+    loading: postsLoading,
+    error: postsError,
+  } = useFetchData<PostData>("https://jsonplaceholder.typicode.com/posts/");
 
-    fetch("https://jsonplaceholder.typicode.com/users/")
-      .then((response) => response.json())
-      .then((json) => setUsers(json));
-  }, []);
+  const {
+    data: users,
+    loading: usersLoading,
+    error: usersError,
+  } = useFetchData<UserData>("https://jsonplaceholder.typicode.com/users/");
 
   useEffect(() => {
-    selectedUserId
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialUser = users.find(
+      (user) => user.id === Number(urlParams.get("user"))
+    );
+    setSelectedUser(initialUser);
+  }, [setSelectedUser, users]);
+
+  useEffect(() => {
+    selectedUser
       ? setFilteredPosts(
-          allPosts.filter((post) => post.userId === selectedUserId)
+          allPosts.filter((post) => post.userId === selectedUser.id)
         )
       : setFilteredPosts(allPosts);
-  }, [allPosts, selectedUserId]);
+  }, [allPosts, selectedUser]);
 
-  const closePopup = () => setIsPopupOpen(false);
+  const selectUser = useCallback((user?: UserData) => {
+    changeUrl(user?.id);
+    setSelectedUser(user);
+  }, []);
+
+  const closePopup = useCallback(() => setIsPopupOpen(false), []);
 
   return (
     <>
       <Popup isOpen={isPopupOpen} onClose={closePopup} />
       <div className="flex flex-row gap-40 bg-neutral-100 px-24 font-lato text-vb-black">
         <section className="pt-20">
-          <h1 className="mb-32 text-5xl font-bold">Posts</h1>
-          {filteredPosts.map((post) => (
-            <Post
-              title={post.title}
-              user={users.find((user) => user.id === post.userId)?.name}
-              body={post.body}
-              key={post.id}
-            />
-          ))}
+          <PostsList
+            posts={filteredPosts}
+            users={users}
+            postsLoading={postsLoading}
+            postsError={postsError}
+          />
         </section>
         <aside className="pt-9">
-          <UsersSelect users={users} idSetter={setSelectedUserId} />
+          {usersLoading ? (
+            <></>
+          ) : (
+            <UsersSelect
+              users={users}
+              activeUser={selectedUser}
+              selectUser={selectUser}
+              postsError={postsError}
+              usersError={usersError}
+              usersLoading={usersLoading}
+            />
+          )}
         </aside>
         <footer>
           <button

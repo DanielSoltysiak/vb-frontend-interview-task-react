@@ -10,11 +10,11 @@ export const InfoIcon = () => {
       <path
         d="M23.4999 10.1622H23.5317M20.3242 20.5058H23.4999V34.2973H26.6756"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <circle cx="23.5" cy="23.5" r="22" stroke="#333333" stroke-width="3" />
+      <circle cx="23.5" cy="23.5" r="22" stroke="#333333" strokeWidth="3" />
     </svg>
   );
 };
