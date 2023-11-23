@@ -4,7 +4,7 @@ import { TriangleIcon } from "./TriangleIcon";
 type Option = {
   id: number;
   name: string;
-};
+} & Partial<Record<string, unknown>>;
 
 interface Props {
   options: Option[];
