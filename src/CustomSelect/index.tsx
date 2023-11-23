@@ -13,7 +13,12 @@ interface Props {
   disabled?: boolean;
 }
 
-const CustomSelect = ({ options, activeOption, onOptionClicked }: Props) => {
+const CustomSelect = ({
+  options,
+  activeOption,
+  onOptionClicked,
+  disabled,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,6 +32,7 @@ const CustomSelect = ({ options, activeOption, onOptionClicked }: Props) => {
   return (
     <>
       <button
+        disabled={disabled}
         tabIndex={0}
         aria-label="User Selection"
         onClick={onToggle}
@@ -46,6 +52,7 @@ const CustomSelect = ({ options, activeOption, onOptionClicked }: Props) => {
         >
           <li>
             <button
+              disabled={disabled}
               role="option"
               tabIndex={0}
               aria-label="All Users"
@@ -60,6 +67,7 @@ const CustomSelect = ({ options, activeOption, onOptionClicked }: Props) => {
           {...options.map((user) => (
             <li key={user.id} className="border-vb-black last:border-b-[3px]">
               <button
+                disabled={disabled}
                 role="option"
                 tabIndex={0}
                 aria-label={user.name}

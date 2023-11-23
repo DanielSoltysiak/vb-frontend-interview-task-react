@@ -70,6 +70,7 @@ function App() {
               postsError={postsError}
               usersError={usersError}
               usersLoading={usersLoading}
+              disabled={isPopupOpen}
             />
           )}
         </aside>

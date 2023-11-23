@@ -8,6 +8,7 @@ interface Props {
   postsError: unknown;
   usersError: unknown;
   usersLoading: boolean;
+  disabled?: boolean;
 }
 
 export const UsersSelect = ({
@@ -17,6 +18,7 @@ export const UsersSelect = ({
   postsError,
   usersError,
   usersLoading,
+  disabled,
 }: Props) => {
   return (
     <>
@@ -26,6 +28,7 @@ export const UsersSelect = ({
         <h2>Loading...</h2>
       ) : (
         <CustomSelect
+          disabled={disabled}
           options={users}
           activeOption={activeUser}
           onOptionClicked={selectUser}
