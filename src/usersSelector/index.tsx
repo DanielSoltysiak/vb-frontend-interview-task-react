@@ -56,8 +56,7 @@ export const UsersSelect = ({
               className="absolute z-10 w-[50vw] bg-neutral-100 sm:static sm:w-full "
             >
               <li>
-                <a
-                  href="#"
+                <button
                   role="option"
                   tabIndex={0}
                   aria-label="All Users"
@@ -67,12 +66,14 @@ export const UsersSelect = ({
                   }`}
                 >
                   All
-                </a>
+                </button>
               </li>
               {...users.map((user) => (
-                <li key={user.id} className="border-vb-black last:border-b-[3px]">
-                  <a
-                    href="#"
+                <li
+                  key={user.id}
+                  className="border-vb-black last:border-b-[3px]"
+                >
+                  <button
                     role="option"
                     tabIndex={0}
                     aria-label={user.name}
@@ -82,7 +83,7 @@ export const UsersSelect = ({
                     }`}
                   >
                     {user.name}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
