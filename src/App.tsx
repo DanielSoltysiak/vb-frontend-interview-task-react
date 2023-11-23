@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { PostData, UserData } from "./types";
-import { UsersSelect } from "./UsersSelector";
+import { UsersSelect } from "./UsersSelect";
 import { Popup } from "./Popup";
 import { InfoIcon } from "./Popup/InfoIcon";
 import { changeUrl } from "./utils/urlChange";
@@ -75,6 +75,7 @@ function App() {
         </aside>
         <footer>
           <button
+            disabled={isPopupOpen}
             aria-label="Open info popup"
             onClick={() => setIsPopupOpen(true)}
             className="fixed right-5 top-5 sm:bottom-5 sm:top-auto"
